@@ -18,9 +18,13 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'nik',
+        'nama',
         'email',
+        'telepon',
+        'username',
         'password',
+        'foto',
     ];
 
     /**
@@ -30,7 +34,6 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'password',
-        'remember_token',
     ];
 
     /**
@@ -39,7 +42,11 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    
+    public function jabatan()
+    {
+        return $this->hasOne(Jabatan::class, 'id', 'jabatan_id');
+    }
 }

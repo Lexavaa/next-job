@@ -14,4 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', IndexController::class,'index')->name('login');
+Route::get('/', [IndexController::class, 'login'])->middleware('guest')->name('login');
+Route::post('/log-session', [IndexController::class, 'log_session']);
+Route::post('/logout', [IndexController::class,'logout'])->name('logout');
+
+Route::group(['prefix' => 'dashboard', 'middleware' => 'auth'], function () {
+    Route::get('/home', [IndexController::class, 'index'])->name('dashboard.home');
+});
